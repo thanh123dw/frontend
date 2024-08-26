@@ -41,8 +41,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Activity', 'url' => ['/activity']],
+            ['label' => 'User Profile', 'url' => ['/userprofile']],
             Yii::$app->session->has('user') && Yii::$app->session->has('token')
                 ? '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')

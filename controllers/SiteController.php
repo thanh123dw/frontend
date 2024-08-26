@@ -149,7 +149,7 @@ class SiteController extends Controller
     /**
      * Logout action.
      *
-     * @return Response
+     * @return Response | string
      */
     public function actionLogout()
     {
