@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 
-use app\models\ContactForm;
 use app\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
@@ -111,6 +110,9 @@ class SiteController extends Controller
             if ($responseData['success']) {
                 // Lưu thông tin người dùng vào session
                 Yii::$app->session->set('user', $responseData['data']);
+                // $user = Yii::$app->session->get('user');
+                // $user['id'] = 2;
+                // Yii::$app->session->set('user', $user);
                 Yii::$app->session->set('token', $responseData['data']['token']);
                 return $this->goHome();
             } else {
@@ -149,7 +151,7 @@ class SiteController extends Controller
     /**
      * Logout action.
      *
-     * @return Response
+     * @return Response|string
      */
     public function actionLogout()
     {
@@ -177,37 +179,7 @@ class SiteController extends Controller
         }
 
         // Chuyển hướng về trang chủ
-        $model = new LoginForm();
-        return $this->render('login', [
-            'model' => $model
-        ]);
+        return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 }
