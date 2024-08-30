@@ -2,39 +2,59 @@
 
 namespace app\controllers;
 
-use Yii;
-use GuzzleHttp\Client;
-use app\models\Activity;
+use yii\web\HttpException;
 
 class ActivityController extends \yii\web\Controller
 {
-    // public function actionIndex()
-    // {
-    //     return $this->render('index');
-    // }
-
-     public function actionFetchStravaData($employeeId)
+   
+    public function actionIndex()
     {
-        $client = new Client();
-        $response = $client->request('GET', 'https://www.strava.com/api/v3/athlete/activities', [
-            'headers' => [
-                'Authorization' => 'Bearer bbcb8efdc09384cd3255804c59982c00d88d146c', // Replace with the actual access token
-            ],
-        ]);
+        $id = 3;
+         
+            $client = new \yii\httpclient\Client([
+                'baseUrl' => 'https://www.strava.com/api/v3',
+            ]);
 
-        $activities = json_decode($response->getBody()->getContents(), true);
+            $request = $client->createRequest()
+            ->setMethod('GET')
+            ->setUrl("routes/{$id}")
+            ->setHeaders([
+                'Authorization' => 'Bearer b3546e94506bdb57842baf4f093d0db393443fc2',
+            ]);
 
-        foreach ($activities as $activity) {
-            $model = new Activity();
-            $model->employee_id = $employeeId;
-            $model->distance = $activity['distance'];
-            $model->time_spent = gmdate("H:i:s", $activity['moving_time']);
-            $model->start_time = $activity['start_date'];
-            $model->end_time = $activity['start_date'] . ' + ' . $activity['elapsed_time'] . ' seconds';
-            $model->save();
-        }
+        $response = $request->send();
 
-        return $this->redirect(['activity/index']);
+            if ($response->isOk  ) {
+                $clubData = $response->data;
+                $segments = $clubData['segments'];
+
+                  // Create a data provider for the segments
+    $segmentsDataProvider = new \yii\data\ArrayDataProvider([
+        'allModels' => $segments,
+        'pagination' => [
+            'pageSize' => 10,
+        ],
+    ]);
+                 $dataProvider = new \yii\data\ArrayDataProvider([
+                'allModels' => [$clubData],
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+
+                return $this->render('index', [
+                    'clubData' => $clubData,
+                    'dataProvider' => $dataProvider,
+                      'segmentsDataProvider' => $segmentsDataProvider,
+                ]);
+            } else {
+                throw new HttpException($response->statusCode, $response->content);
+            }
+        
+        // return $this->render('index');
     }
+
+
+  
 
 }

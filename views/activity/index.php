@@ -1,30 +1,54 @@
 <?php
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var yii\web\View $this  */
+/**  @var array $clubData  */
 
 use yii\grid\GridView;
 use yii\helpers\Html;
 
+$this->title = $clubData['name'];
+
 echo GridView::widget([
-    'dataProvider' => $dataProvider,
+    'dataProvider' => $segmentsDataProvider,
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
-        'employee.fullname',
-        'distance',
-        'time_spent',
-        'start_time',
-        'end_time',
+          [
+            'attribute' => 'id',
+            'label' => 'ID',  
+        ],
+         [
+            'attribute' => 'name',
+            'label' => 'Tên hoạt động', 
+        ],
+        [
+            'attribute' => 'activity_type',
+            'label' => 'Loại hoạt động', 
+        ],
+        [
+            'attribute' => 'distance',
+            'label' => 'Quảng đường', 
+        ],
+        [
+            'attribute' => 'average_grade',
+            'label' => 'Điểm trung bình', 
+        ],
+        [
+            'attribute' => 'maximum_grade',
+            'label' => 'Điểm lớn nhất', 
+        ],
+        [
+            'attribute' => 'city',
+            'label' => 'Thành phố', 
+        ],
         [
             'class' => 'yii\grid\ActionColumn',
-            'template' => '{view} {update} {delete}',
+            'template' => '{view}  ',
         ],
     ],
+     'tableOptions' => ['class' => 'table  table-bordered'], // Apply Bootstrap table classes
+    'headerRowOptions' => ['class' => 'thead-dark text-center'],
+    'rowOptions' => ['class' => 'text-center'],
+      'options' => ['class' => 'grid-view'], // Set container options
 ]);
 ?>
 
-<h1>activity/index</h1>
-
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>

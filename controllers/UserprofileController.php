@@ -4,37 +4,52 @@ namespace app\controllers;
 
 
 use Yii;
-use app\models\Userprofile;
-use app\models\UserprofileSearch;
+use app\models\UserProfile;
 use yii\web\Controller;
 use yii\httpclient\Client;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 
 
 /**
  * UserprofileController implements the CRUD actions for Userprofile model.
  */
-class UserprofileController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * @inheritDoc
      */
-    public function behaviors()
+   public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+    return [
+        'access' => [
+            'class' => AccessControl::class,
+            'only' => ['*'], // Áp dụng cho tất cả các action
+            'rules' => [
+                [
+                    'allow' => true,
+                    // Cho phép truy cập vào các action nếu đã đăng nhập
+                    'matchCallback' => function ($rule, $action) {
+                        return Yii::$app->session->has('user') && Yii::$app->session->has('token');
+                    }
                 ],
-            ]
-        );
-    }
+            ],
+            'denyCallback' => function ($rule, $action) {
+                // Chuyển hướng đến trang đăng nhập nếu không có quyền truy cập
+                return Yii::$app->response->redirect(['site/login']);
+            },
+        ],
+        'verbs' => [
+            'class' => VerbFilter::class,
+            'actions' => [
+                'logout' => ['post'],
+            ],
+        ],
+    ];
+}
 
     /**
      * Lists all Userprofile models.
@@ -43,23 +58,21 @@ class UserprofileController extends Controller
      */
     public function actionIndex()
     {
-        // Kiểm tra xem người dùng đã đăng nhập chưa
-        if (!Yii::$app->session->has('user') || !Yii::$app->session->has('token')) {
-            return $this->redirect(['site/login']);
-        }
         $id = Yii::$app->session->get('user')['id']; 
-
-
         // Gửi request lên server để lấy thông tin user profile
         $client = new Client();
         $response =  $client->get('http://localhost/backend/web/user-profile/get', ['id' => $id])->send();
 
-        if($response->isOk) {
+        if($response->isOk && $response->data['success']) {
             $userprofile = $response->data;
+            $userProfileModel = new UserProfile();
+
+            // Assign the array to the model attributes
+            $userProfileModel->setAttributes($userprofile['data'], false);
   
             return (
                 $this->render('index', [
-                    'userprofile' => $userprofile['data'],
+                    'userprofile' => $userProfileModel,
                 ])
             );
         }   
@@ -91,7 +104,7 @@ class UserprofileController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Userprofile();
+        $model = new UserProfile();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -176,12 +189,12 @@ class UserprofileController extends Controller
      * Finds the Userprofile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Userprofile the loaded model
+     * @return UserProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Userprofile::findOne(['id' => $id])) !== null) {
+        if (($model = UserProfile::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

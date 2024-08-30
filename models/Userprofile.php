@@ -23,7 +23,7 @@ use Yii;
  * @property int $point
  * @property int $locked
  */
-class Userprofile extends \yii\db\ActiveRecord
+class UserProfile extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -56,15 +56,15 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'employee_id' => 'Employee ID',
-            'fullname' => 'Fullname',
+            'employee_id' => 'ID Nhân viên',
+            'fullname' => 'Họ và Tên',
             'username' => 'Username',
-            'idcard' => 'Idcard',
-            'taxcode' => 'Taxcode',
-            'address' => 'Address',
-            'phonenumber' => 'Phonenumber',
-            'bankaccountnumber' => 'Bankaccountnumber',
-            'password' => 'Password',
+            'idcard' => 'Thẻ căn cước',
+            'taxcode' => 'Mã số thuế',
+            'address' => 'Địa chỉ',
+            'phonenumber' => 'Số điện thoại',
+            'bankaccountnumber' => 'Số tài khoản ngân hàng',
+            'password' => 'Mật khẩu',
             'token' => 'Token',
             'created_at' => 'Created At',
             'staffids' => 'Staffids',

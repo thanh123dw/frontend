@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Userprofile;
+use app\models\UserProfile;
 
 /**
  * UserprofileSearch represents the model behind the search form of `app\models\Userprofile`.
  */
-class UserprofileSearch extends Userprofile
+class UserProfileSearch extends UserProfile
 {
     /**
      * {@inheritdoc}
