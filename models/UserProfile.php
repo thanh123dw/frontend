@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -22,23 +23,15 @@ use Yii;
  * @property int $point
  * @property int $locked
  */
-class UserProfile extends \yii\base\Model
+class UserProfile extends \yii\db\ActiveRecord
 {
-    public $id;
-    public $employee_id;
-    public $fullname;
-    public $username;
-    public $idcard;
-    public $taxcode;
-    public $address;
-    public $phonenumber;
-    public $bankaccountnumber;
-    public $password;
-    public $token;
-    public $created_at;
-    public $staffids;
-    public $point;
-    public $locked;
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'userprofile';
+    }
 
     /**
      * {@inheritdoc}
@@ -46,7 +39,7 @@ class UserProfile extends \yii\base\Model
     public function rules()
     {
         return [
-            [['id', 'employee_id', 'fullname', 'username', 'idcard', 'password'], 'required'],
+            [['employee_id', 'fullname', 'username', 'idcard', 'password'], 'required'],
             [['address'], 'string'],
             [['created_at'], 'safe'],
             [['point', 'locked'], 'integer'],
@@ -63,15 +56,15 @@ class UserProfile extends \yii\base\Model
     {
         return [
             'id' => 'ID',
-            'employee_id' => 'Employee ID',
-            'fullname' => 'Fullname',
+            'employee_id' => 'ID Nhân viên',
+            'fullname' => 'Họ và Tên',
             'username' => 'Username',
-            'idcard' => 'Idcard',
-            'taxcode' => 'Taxcode',
-            'address' => 'Address',
-            'phonenumber' => 'Phonenumber',
-            'bankaccountnumber' => 'Bankaccountnumber',
-            'password' => 'Password',
+            'idcard' => 'Thẻ căn cước',
+            'taxcode' => 'Mã số thuế',
+            'address' => 'Địa chỉ',
+            'phonenumber' => 'Số điện thoại',
+            'bankaccountnumber' => 'Số tài khoản ngân hàng',
+            'password' => 'Mật khẩu',
             'token' => 'Token',
             'created_at' => 'Created At',
             'staffids' => 'Staffids',

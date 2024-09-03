@@ -19,7 +19,7 @@ class ActivityController extends \yii\web\Controller
             ->setMethod('GET')
             ->setUrl("routes/{$id}")
             ->setHeaders([
-                'Authorization' => 'Bearer b3546e94506bdb57842baf4f093d0db393443fc2',
+                'Authorization' => 'Bearer b2da0fe07e5a49debcca42fd9a6ab747c5d7b4cd',
             ]);
 
         $response = $request->send();

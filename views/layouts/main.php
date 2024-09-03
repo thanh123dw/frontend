@@ -40,8 +40,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav me-auto '],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Points', 'url' => ['/point']],
+            ['label' => 'Hoạt động nhân viên', 'url' => ['/activity']],
+            ['label' => 'Thông tin người dùng', 'url' => ['/user-profile']],
+        ]
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav ml-auto'],
+        'items' => [
             Yii::$app->session->has('user') && Yii::$app->session->has('token')
                 ? '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
