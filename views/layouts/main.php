@@ -41,7 +41,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav me-auto '],
             'items' => [
-                ['label' => 'Points', 'url' => ['/point']],
+                ['label' => 'Điểm Thưởng', 'url' => ['/point']],
                 ['label' => 'Lịch làm việc', 'url' => ['/work-schedule']],
                 isset(Yii::$app->session->get('user')['user_role']) && Yii::$app->session->get('user')['user_role'] == 'manager'
                     ? 
@@ -93,8 +93,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <footer id="footer" class="mt-auto py-3 bg-light">
         <div class="container">
             <div class="d-flex justify-content-between text-muted">
-                <div class=" text-md-start">&copy; My Company <?= date('Y') ?></div>
-                <div >Powered by <a href=" https://www.yiiframework.com/" rel="external">Yii Framework</a></div>
+                <div class=" text-md-start">&copy; Nhóm 2 - <?= date('Y') ?></div>
+                <div >Powered by <a href="https://courses.ctda.hcmus.edu.vn/" rel="external">HCMUS</a></div>
             </div>
         </div>
     </footer>

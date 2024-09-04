@@ -6,16 +6,12 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var yii\data\ArrayDataProvider $dataProvider */
 
-$this->title = 'Work Schedules';
+$this->title = 'Lịch làm việc';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="work-schedule-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Work Schedule', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,11 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'staffid',
-            'workdate',
-            'starttime',
-            'endtime',
+            [
+                'attribute' => 'staffid',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'workdate',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'starttime',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'endtime',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            'shifttype',
         ],
     ]); ?>
 
