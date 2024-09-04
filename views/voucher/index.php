@@ -7,12 +7,9 @@ use yii\helpers\Html;
 /** @var int $point */
 
 $this->title = 'Available Vouchers';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= Html::a(
-    '<i class="fa fa-arrow-left"></i> <', 
-    ['/point/index'], 
-    ['class' => 'btn btn-secondary', 'title' => 'Quay lại danh sách']
-) ?>
+
 <h1><?= Html::encode($this->title) ?></h1>
 <p><strong>Điểm hiện có: </strong> <?= $point ?></p>
 
@@ -28,10 +25,7 @@ $this->title = 'Available Vouchers';
         ],
         'name',
         'valid_to',
-        [
-            'attribute' => 'point',
-            'label' => 'Point',
-        ],
+        'point',
         [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{redeem}',

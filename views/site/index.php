@@ -2,52 +2,37 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = 'Home Page';
 ?>
-<div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+<div class="welcome-image">
+    <img src="https://media.istockphoto.com/id/910118874/vi/vec-to/%C4%91%E1%BB%99i-ng%C5%A9-b%C3%A1c-s%C4%A9.jpg?s=612x612&w=0&k=20&c=cuoP5Dmm505uVameSfqsPHiV62bbpqIQkk1xhYu5ZJQ=" alt="Welcome Image">
+    <div class="welcome-text">Welcome to Quản Lý Nhân Sự!!</div>
 </div>
+
+<style>
+    .welcome-image {
+        position: relative;
+        max-width: 100%; /* Đảm bảo hình ảnh không tràn ngang */
+        overflow: hidden; /* Ẩn phần tràn nếu có */
+    }
+    .welcome-image img {
+        width: 100%;
+        height: auto;
+        max-width: 100%; /* Giới hạn chiều rộng của hình ảnh */
+        max-height: 80vh; /* Giới hạn chiều cao của hình ảnh */
+        object-fit: contain; /* Đảm bảo hình ảnh chứa toàn bộ mà không bị biến dạng */
+    }
+    .welcome-text {
+        position: absolute;
+        bottom: 10px; /* Căn lề dưới */
+        left: 50%; /* Căn giữa theo chiều ngang */
+        transform: translateX(-50%); /* Điều chỉnh vị trí để căn giữa */
+        font-size: 3em; /* Kích thước chữ to */
+        font-weight: bold;
+        color: black; /* Màu chữ đen */
+        padding: 5px 10px; /* Khoảng cách giữa chữ và viền */
+        border-radius: 5px; /* Bo tròn các góc */
+        white-space: nowrap; /* Đảm bảo chữ không bị xuống dòng */
+    }
+</style>

@@ -9,12 +9,38 @@ use yii\web\Response;
 use app\models\AwardPointsForm;
 use app\models\UserProfile;
 use app\models\UserProfileSearch;
+use yii\filters\AccessControl;
 
 /**
  * PointController implements the CRUD actions for Point model.
  */
 class PointController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                // Apply to all actions by omitting 'only' or list specific actions
+                'rules' => [
+                    [
+                        // Apply to all actions by omitting 'actions'
+                        'allow' => false, // Deny access by default
+                        // Deny access to all pages if user and token are not in session
+                        'matchCallback' => function ($rule, $action) {
+                            return !Yii::$app->session->has('user') || !Yii::$app->session->has('token') || Yii::$app->session->get('user')['user_role'] != 'manager';
+                        },
+                        'actions' => [
+                            'get-staff'
+                        ],
+                    ],
+                    [
+                        'allow' => true, // Allow access if user and token are in session
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Lists all Point models.
@@ -76,23 +102,21 @@ class PointController extends Controller
         ]);
     }
 
-    public function actionGetStaff($ids = null)
+    public function actionGetStaff()
     {
         $employees = [];
         
-        if ($ids) {
-            $client = new Client();
-            $response = $client->createRequest()
-                ->setMethod('GET')
-                ->setUrl('http://localhost/backend/web/user-profile/get-staff')
-                ->setData(['ids' => $ids])
-                ->send();
-        
-            if ($response->isOk && $response->data['success']) {
-                $employees = $response->data['data'];
-            } else {
-                Yii::$app->session->setFlash('error', 'Không thể lấy danh sách nhân viên.');
-            }
+
+        $client = new Client();
+        $response = $client->createRequest()
+            ->setMethod('GET')
+            ->setUrl('http://localhost/backend/web/user-profile/get-staff')
+            ->send();
+    
+        if ($response->isOk && $response->data['success']) {
+            $employees = $response->data['data'];
+        } else {
+            Yii::$app->session->setFlash('error', 'Không thể lấy danh sách nhân viên.');
         }
         
         // Chuyển đổi dữ liệu thành các đối tượng UserProfile

@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 
 class VoucherController extends Controller
 {
-    private $apiUrl = "https://mocki.io/v1/244d9ba5-2e10-452e-a36c-04875fa5ca0e";
+    private $apiUrl = "http://localhost/backend/web/vouchers";
 
     public function actionIndex()
     {
@@ -21,10 +21,10 @@ class VoucherController extends Controller
         $client = new Client();
         $response = $client->get($this->apiUrl)->send();
 
-        if ($response->isOk) {
-            $data = $response->data;
+        if ($response->isOk && $response->data['success']) {
+            $data = $response->data['data'];
             $vouchers = [];
-            foreach ($data['vouchers'] as $item) {
+            foreach ($data as $item) {
                 $voucher = new Voucher();
                 $voucher->attributes = $item;
                 $vouchers[] = $voucher;

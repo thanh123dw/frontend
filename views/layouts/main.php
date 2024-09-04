@@ -41,27 +41,39 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav me-auto '],
             'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
                 ['label' => 'Points', 'url' => ['/point']],
-                ['label' => 'Hoạt động nhân viên', 'url' => ['/activity']],
-                ['label' => 'Thông tin người dùng', 'url' => ['/user-profile']],
-                ['label' => 'Phê duyệt', 'url' => ['/approve-work-schedule']],
                 ['label' => 'Lịch làm việc', 'url' => ['/work-schedule']],
+                isset(Yii::$app->session->get('user')['user_role']) && Yii::$app->session->get('user')['user_role'] == 'manager'
+                    ? 
+                    ['label' => 'Phê duyệt', 'url' => ['/approve-work-schedule']]:'',
             ]
         ]);
+        $defaultProfilePictureUrl = Yii::$app->request->baseUrl . '/profile_pictures/' . 'profile-icon-empty.png'; // Đường dẫn tới hình ảnh
+
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav ml-auto'],
             'items' => [
                 Yii::$app->session->has('user') && Yii::$app->session->has('token')
+                    ? [
+                        'label' => Html::img($defaultProfilePictureUrl, [
+                                'alt' => 'Profile Picture',
+                                'class' => 'img-thumbnail rounded-circle',
+                                'style' => 'width: 35px; height: 35px; margin-right: 10px;'
+                            ]),
+                        'encode' => false,
+                        'url' => ['/user-profile'],
+                    ]
+                    : '',
+                Yii::$app->session->has('user') && Yii::$app->session->has('token')
                     ? '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
-                        'Logout',
-                        ['class' => 'nav-link btn btn-link logout']
+                        'Đăng xuất',
+                        ['class' => 'nav-link btn mt-1 btn-link logout']
                     )
                     . Html::endForm()
                     . '</li>'
-                    : ['label' => 'Login', 'url' => ['/site/login']]
+                    : ['label' => 'Đăng nhập', 'url' => ['/site/login']]
             ]
         ]);
         NavBar::end();

@@ -18,4 +18,19 @@ class Voucher extends Model
             [['id', 'name', 'code', 'valid_to', 'image_url', 'point'], 'safe'],
         ];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Tên Voucher',
+            'code' => 'Mã',
+            'valid_to' => 'Ngày Bắt Đầu',
+            'image_url' => 'Hình Ảnh',
+            'point' => 'Điểm'
+        ];
+    }
 }

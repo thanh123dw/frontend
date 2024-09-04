@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\UserProfile $model */
 
-$this->title = 'Cập nhật thông tin ' . $model->id;
+$this->title = 'Cập nhật thông tin';
 $this->params['breadcrumbs'][] = ['label' => 'Thông tin người dùng', 'url' => ['index']];
 
 ?>
