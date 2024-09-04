@@ -53,10 +53,11 @@ class ApproveWorkSchedule extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'workscheduleid' => 'Workscheduleid',
-            'staffid' => 'Staffid',
+            'workscheduleid' => 'Mã ca làm việc',
+            'staffid' => 'Mã nhân viên',
             'workdate' => 'Ngày làm việc',
             'starttime' => 'Giờ bắt đầu',
+            'createdat'=> 'Ngày tạo',
             'endtime' => 'Giờ kết thúc',
             'shifttype' => 'Ca làm việc',
             'description' => 'Mô tả',

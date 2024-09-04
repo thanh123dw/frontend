@@ -26,11 +26,40 @@ $dataProvider->setSort(false);
         },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'staffid',
-            'workdate',
-            'starttime',
-            'endtime',
+            [
+                'attribute' => 'staffid',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'workdate',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'starttime',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            [
+                'attribute' => 'endtime',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],
+            'shifttype',
+            'reason',
+            [
+                'attribute' => 'locked',
+                'label' => 'Xin nghỉ',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::checkbox('locked', $model->locked, [
+                        'disabled' => true,
+                    ]);
+                },
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center;'],
+            ],  
         ],
     ]); ?>
 

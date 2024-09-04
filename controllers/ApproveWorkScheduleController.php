@@ -61,12 +61,11 @@ class ApproveWorkScheduleController extends Controller
         // Kiểm tra nếu yêu cầu thành công
         if ($response->isOk && $response->data['success']) {
             $modelArray = []; // Tạo mảng để chứa các đối tượng model
-            $model = new ApproveWorkSchedule();
             foreach ($response->data['data'] as $dataItem) {
-                $temp= ArrayHelper::toArray($dataItem);
+                $temp = ArrayHelper::toArray($dataItem);
                 $model = new ApproveWorkSchedule();
                 $model->setAttributes($temp);
-                $model->id=$temp['id'];
+                $model->id = $temp['id'];
                 $modelArray[] = $model; // Chuyển đổi đối tượng model thành mảng và thêm vào mảng $modelArray
             }
 
@@ -126,8 +125,8 @@ class ApproveWorkScheduleController extends Controller
             $data = $response->data['data'];
             $model = $data['model'];
 
-
-            $workSchedule->setAttributes($model);
+            $workSchedule = new ApproveWorkSchedule();
+            $workSchedule->setAttributes(ArrayHelper::toArray($data['model']));
             $workSchedule->workscheduleid = $model['id'];
             $workSchedule->id = null;
             $shiftTypes = $data['shifttype'];
@@ -142,52 +141,50 @@ class ApproveWorkScheduleController extends Controller
         }
     }
 
-    
-    public function actionApprove($id)
+    public function actionApprove($id, $action = '')
     {
         // Khởi tạo HTTP client
         $client = new Client();
         // Tạo một đối tượng WorkSchedule từ dữ liệu nhận được
         $workSchedule = new ApproveWorkSchedule();
 
-        if ($this->request->isPost && $workSchedule->load(Yii::$app->request->post())) {
+        if ($this->request->isPost) {
             // Chuẩn bị dữ liệu để gửi qua API
-            $postData = Yii::$app->request->post();
+
             // $postData["ApproveWorkSchedule"]["staffid"] = Yii::$app->session->get('user')['id'];
             // Gửi yêu cầu POST đến API để lưu dữ liệu
             $saveResponse = $client->createRequest()
-                ->setMethod('POST')
-                ->setUrl('http://localhost/backend/web/approve-work-schedule/approve')
-                ->setData($postData)
+                ->setMethod('GET')
+                ->setUrl('http://localhost/backend/web/approve-work-schedule/save')
+                ->setData(['id' => $id, 'action' =>$action])
                 ->send();
 
             // Kiểm tra nếu lưu thành công
-            // Yii::error($saveResponse);
-
             if ($saveResponse->isOk && $saveResponse->data['success']) {
                 // Nếu lưu thành công, chuyển hướng về danh sách hoặc trang khác
                 return $this->redirect([
-                    '/work-schedule'
+                    'index'
                 ]);
             } else {
                 // Xử lý lỗi nếu lưu thất bại
-                Yii::$app->session->setFlash('error', $saveResponse->data);
+                var_dump($saveResponse);
+                //Yii::$app->session->setFlash('error', );
             }
         }
+      
         // Gửi yêu cầu GET đến API để lấy dữ liệu theo ID
         $response = $client->createRequest()
             ->setMethod('GET')
-            ->setUrl('http://localhost/backend/web/approve-work-schedule/get?id=' . urlencode($id))
+            ->setUrl('http://localhost/backend/web/approve-work-schedule/get?id=' .$id)
             ->send();
 
         // Kiểm tra nếu yêu cầu thành công
         if ($response->isOk && $response->data['success']) {
             $data = $response->data['data'];
             $model = $data['model'];
-            
+
             $workSchedule->setAttributes($model);
-            $workSchedule->workscheduleid = $model['id'];
-            $workSchedule->id = null;
+            $workSchedule->id = $model['id'];
             $shiftTypes = $data['shifttype'];
 
             // Render biểu mẫu cập nhật

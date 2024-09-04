@@ -49,14 +49,14 @@ class WorkSchedule extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'staffid' => 'Staffid',
+            'staffid' => 'Mã nhân viên',
             'workdate' => 'Ngày làm việc',
             'starttime' => 'Giờ bắt đầu',
             'endtime' => 'Giờ kết thúc',
             'shifttype' => 'Ca làm việc',
             'description' => 'Mô tả',
-            'createdat' => 'Createdat',
-            'updatedat' => 'Updatedat',
+            'createdat' => 'Ngày tạo',
+            'updatedat' => 'Ngày cập nhật',
             'locked' => 'Bỏ',
         ];
     }
