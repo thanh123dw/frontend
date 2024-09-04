@@ -6,21 +6,24 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\ApproveWorkSchedule $model */
 
-$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Phê duyệt ca làm việc', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="approve-work-schedule-view">
+<div class="approve-work-schedule-view container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Phê duyệt', ['approve', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Từ chối', ['delete', 'id' => $model->id], [
+        <?= Html::a('Phê duyệt', ['approve', 'id' => $model->id, 'action' => (string) 'approve'], [
+            'class' => 'btn btn-primary',
+            'data' => [
+                'method' => 'post',
+            ],
+        ]) ?>
+        <?= Html::a('Từ chối', ['approve', 'id' => $model->id, 'action' => (string) 'reject'], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Bạn có muốn xóa yêu cầu này không ?',
+                'confirm' => 'Bạn có muốn từ chối yêu cầu này không?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -37,10 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'endtime',
             'shifttype',
             'description:ntext',
-            'status',
-            'locked',
+            [
+                'attribute' => 'locked',
+                'label' => 'Xin nghỉ',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::checkbox('locked', $model->locked, [
+                        'disabled' => true,
+                    ]);
+                },
+            ],
             'createdat',
-            'updatedat',
             'reason',
         ],
     ]) ?>

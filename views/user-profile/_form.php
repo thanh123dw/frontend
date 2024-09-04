@@ -20,7 +20,6 @@ use yii\widgets\ActiveForm;
     <div class="custom-form-group ">
         <?= $form->field($model, 'fullname')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
     </div>
-    
 
     <div class="custom-form-group">
         <?= $form->field($model, 'username')->textInput(['maxlength' => true, 'disabled' => true, 'class' => 'form-control']) ?>

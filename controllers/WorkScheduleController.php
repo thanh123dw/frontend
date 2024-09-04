@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\WorkSchedule;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -56,11 +57,18 @@ class WorkScheduleController extends Controller
 
         // Kiểm tra nếu yêu cầu thành công
         if ($response->isOk && $response->data['success']) {
-            $model = $response->data['data'];
+            $modelArray = []; // Tạo mảng để chứa các đối tượng model
+            foreach ($response->data['data'] as $dataItem) {
+                $temp = ArrayHelper::toArray($dataItem);
+                $model = new WorkSchedule();
+                $model->setAttributes($temp);
+                $model->id = $temp['id'];
+                $modelArray[] = $model; // Chuyển đổi đối tượng model thành mảng và thêm vào mảng $modelArray
+            }
 
             // Đưa dữ liệu vào DataProvider
             $dataProvider = new ArrayDataProvider([
-                'allModels' => $model, // Chắc chắn $model là một mảng hoặc có thể là một mảng của các mô hình
+                'allModels' => $modelArray, // Chắc chắn $modelArray là một mảng chứa các mảng dữ liệu của model
                 'pagination' => false,
             ]);
 
