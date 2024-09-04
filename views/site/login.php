@@ -9,7 +9,6 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
 $this->title = 'Đăng nhập';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login w-50 container border rounded-1 px-5 pt-3">
     <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
