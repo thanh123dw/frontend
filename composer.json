@@ -21,6 +21,7 @@
         "components/jquery": "dev-master",
         "twbs/bootstrap": "dev-main",
         "yiisoft/yii2-httpclient": "^2.0@dev",
+        "yiisoft/yii2-jui": "^2.0@dev",
         "guzzlehttp/guzzle": "8.0.x-dev"
     },
     "require-dev": {

@@ -43,6 +43,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Points', 'url' => ['/point']],
             ['label' => 'Hoạt động nhân viên', 'url' => ['/activity']],
             ['label' => 'Thông tin người dùng', 'url' => ['/user-profile']],
+            ['label' => 'Phê duyệt', 'url' => ['/approve-work-schedule']],
+            ['label' => 'Lịch làm việc', 'url' => ['/work-schedule']],
         ]
     ]);
     echo Nav::widget([
