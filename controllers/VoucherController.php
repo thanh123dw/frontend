@@ -53,9 +53,9 @@ class VoucherController extends Controller
         $response = $client->get($this->apiUrl)->send();
 
         if ($response->isOk) {
-            $vouchers = $response->data['vouchers'];
+            $data = $response->data['data'];
             $voucher = null;
-            foreach ($vouchers as $item) {
+            foreach ($data as $item) {
                 if ($item['id'] == $id) {
                     $voucher = $item;
                     break;
@@ -69,7 +69,7 @@ class VoucherController extends Controller
             // Check current points
             $currentPoints = Yii::$app->session->get('user')['point'];
             if ($currentPoints < $voucher['point']) {
-                Yii::$app->session->setFlash('error', 'Not enough points to redeem this voucher.');
+                Yii::$app->session->setFlash('error', 'Không đủ điểm để đổi!!!');
                 return $this->redirect(['index']);
             }
             $user = Yii::$app->session->get('user');

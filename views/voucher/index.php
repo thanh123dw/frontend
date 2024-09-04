@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var yii\data\ArrayDataProvider $dataProvider */
 /** @var int $point */
 
-$this->title = 'Available Vouchers';
+$this->title = 'Vouchers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <p><strong>Điểm hiện có: </strong> <?= $point ?></p>
 
 <?= GridView::widget([
+    'tableOptions' => ['class' => 'table table-bordered table-hover table table-striped'],
     'dataProvider' => $dataProvider,
     'columns' => [
         [
@@ -24,20 +25,29 @@ $this->params['breadcrumbs'][] = $this->title;
             },
         ],
         'name',
-        'valid_to',
-        'point',
+        [
+            'attribute' => 'valid_to',
+            'headerOptions' => ['style' => 'text-align: center;'],
+            'contentOptions' => ['style' => 'text-align: center;'],
+        ],
+        [
+            'attribute' => 'point',
+            'headerOptions' => ['style' => 'text-align: center;'],
+            'contentOptions' => ['style' => 'text-align: center;'],
+        ],
         [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{redeem}',
             'buttons' => [
                 'redeem' => function ($url, $model) {
-                    return Html::a('Redeem', ['redeem', 'id' => $model->id], [
+                    return Html::a('Đổi', ['redeem', 'id' => $model->id], [
                         'class' => 'btn btn-primary',
                         'data-method' => 'post',
-                        'data-confirm' => 'Are you sure you want to redeem this voucher?',
+                        'data-confirm' => 'Đổi voucher này?',
                     ]);
                 },
             ],
+            'contentOptions' =>['class'=> 'text-center'],
         ],
     ],
 ]); ?>

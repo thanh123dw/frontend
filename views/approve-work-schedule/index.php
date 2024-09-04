@@ -16,6 +16,7 @@ $dataProvider->setSort(false);
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-bordered table-hover table table-striped'],
         'rowOptions' => function ($model) {
             $id = isset($model['id']) ? $model['id'] : null;
 

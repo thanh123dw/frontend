@@ -11,6 +11,7 @@ $this->title = $clubData['name'];
 
 echo GridView::widget([
     'dataProvider' => $segmentsDataProvider,
+    'tableOptions' => ['class' => 'table table-bordered table-hover table table-striped'],
     'columns' => [
           [
             'attribute' => 'id',

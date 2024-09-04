@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= GridView::widget([
+        'tableOptions' => ['class' => 'table table-bordered table-hover table table-striped'],
         'dataProvider' => $dataProvider,
         'rowOptions' => function ($model) {
             // Kiểm tra nếu $model là mảng, sử dụng chỉ số thay vì thuộc tính
